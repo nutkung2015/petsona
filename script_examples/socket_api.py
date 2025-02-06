@@ -63,14 +63,14 @@ prompt_text = """
 {
   "3": {
     "inputs": {
-      "seed": 0,
-      "steps": 20,
-      "cfg": 8,
-      "sampler_name": "euler",
+      "seed": 606521811840601,
+      "steps": 40,
+      "cfg": 7,
+      "sampler_name": "dpmpp_2m",
       "scheduler": "normal",
-      "denoise": 1,
+      "denoise": 0.8700000000000001,
       "model": [
-        "4",
+        "19",
         0
       ],
       "positive": [
@@ -82,7 +82,7 @@ prompt_text = """
         0
       ],
       "latent_image": [
-        "5",
+        "16",
         0
       ]
     },
@@ -91,31 +91,11 @@ prompt_text = """
       "title": "KSampler"
     }
   },
-  "4": {
-    "inputs": {
-      "ckpt_name": "dragonfruitUnisex_dragonfruitgtV10.safetensors"
-    },
-    "class_type": "CheckpointLoaderSimple",
-    "_meta": {
-      "title": "Load Checkpoint"
-    }
-  },
-  "5": {
-    "inputs": {
-      "width": 512,
-      "height": 512,
-      "batch_size": 1
-    },
-    "class_type": "EmptyLatentImage",
-    "_meta": {
-      "title": "Empty Latent Image"
-    }
-  },
   "6": {
     "inputs": {
-      "text": "beautiful scenery nature glass bottle landscape, , purple galaxy bottle,",
+      "text": "a human with **(detailed and highly stylized cat ears)**, **(vivid and high-contrast cat-like nose)**.The overall color palette follows a **bold Pop Art style**, using **highly saturated red, yellow, and blue tones**, with **strong black outlines and high contrast shading**.  ",
       "clip": [
-        "4",
+        "17",
         1
       ]
     },
@@ -126,9 +106,9 @@ prompt_text = """
   },
   "7": {
     "inputs": {
-      "text": "text, watermark",
+      "text": "multiple people, extra face, extra head, double face, crowd, group of people, other faces, split face, distorted face, duplicate face, out of frame, blurry, low quality, watermark, text, logo, unnatural, deformed body, extra limbs, extra arms, extra legs, multiple heads,  knife, gun",
       "clip": [
-        "4",
+        "17",
         1
       ]
     },
@@ -144,7 +124,7 @@ prompt_text = """
         0
       ],
       "vae": [
-        "4",
+        "14",
         2
       ]
     },
@@ -167,6 +147,94 @@ prompt_text = """
     }
   },
   "10": {
+    "inputs": {
+      "image": "Outdoors-man-portrait_(cropped).jpg",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "14": {
+    "inputs": {
+      "ckpt_name": "dragonfruitUnisex_dragonfruitgtV10.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "16": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "17": {
+    "inputs": {
+      "lora_name": "pop art style_v2.0.safetensors",
+      "strength_model": 0.5,
+      "strength_clip": 0.5,
+      "model": [
+        "14",
+        0
+      ],
+      "clip": [
+        "14",
+        1
+      ]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "18": {
+    "inputs": {
+      "preset": "STANDARD (medium strength)",
+      "model": [
+        "17",
+        0
+      ]
+    },
+    "class_type": "IPAdapterUnifiedLoader",
+    "_meta": {
+      "title": "IPAdapter Unified Loader"
+    }
+  },
+  "19": {
+    "inputs": {
+      "weight": 1,
+      "weight_type": "linear",
+      "combine_embeds": "concat",
+      "start_at": 0,
+      "end_at": 1,
+      "embeds_scaling": "V only",
+      "model": [
+        "18",
+        0
+      ],
+      "ipadapter": [
+        "18",
+        1
+      ],
+      "image": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "IPAdapterAdvanced",
+    "_meta": {
+      "title": "IPAdapter Advanced"
+    }
+  },
+  "21": {
     "inputs": {
       "images": [
         "8",
@@ -196,12 +264,11 @@ ws.close()  # for in case this example is used in an environment where it will b
 
 for node_id in images:
     for image_data in images[node_id]:
-        from PIL import Image
+        from PIL import Image  # type: ignore
         import io
 
         image = Image.open(io.BytesIO(image_data))
         image.save(
-            "C:\\Users\\admin\\OneDrive\\เดสก์ท็อป\\Work_p2_2024\\python_AI\\inClass\\LAB_01\\faceswap\\imageFromComfy\\comfy_1.png"
+            "C:\\Users\\admin\\OneDrive\\เดสก์ท็อป\\Work_p2_2024\\python_AI\\inClass\\LAB_01\\faceswap\\imageFromComfy\\comfy_2.png"
         )
         image.show()
-# 
